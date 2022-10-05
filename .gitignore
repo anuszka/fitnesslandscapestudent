@@ -3,6 +3,21 @@
 # Learn more about .gitignore:
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
+# # Input / Output data
+# *.dat
+# *.csv
+# *.out
+
+# compiled C++ files
+*.run
+*.d
+obj/
+
+# VS Code config files
+.vscode/
+*.code-workspace
+
+
 # Node artifact files
 node_modules/
 dist/
