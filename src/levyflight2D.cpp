@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <iostream>
 #include <gsl/gsl_math.h>
 #include "include/levyflight2D.h"
 
@@ -30,11 +31,14 @@ void LevyFlight2D::setParams(
         double gamma,
         double (*func_U)(position2D),
         position2D (*func)(position2D),
-        bool (*func_bdr)(position2D),
+        position2D (*func_second)(position2D),
+        bool (*func_bdr)(position2D,int),
         double dt,
         double minDt,
         double eta,
         double T,
+        double t_pfs_start,
+        double t_pfs_end,
         timeposition2D X0,
         unsigned int seed
         )
@@ -44,12 +48,15 @@ void LevyFlight2D::setParams(
         setDriftIntensity(gamma);
         U = func_U;
         dUdx=func;
+        dUdx_second=func_second;
         out_of_boundary=func_bdr;
         setTimeStep(dt);
         setMinimalTimeStep(minDt);
         setEta(eta);
         setPrefactor();
         setEndTime(T);
+        setTpfsStart(t_pfs_start);
+        setTpfsEnd(t_pfs_end);
         setInitialValues(X0);
         setRandomNumberGenerator(seed);
         }

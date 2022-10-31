@@ -16,9 +16,12 @@ private:
     double t0;                  // Initial time
     double x0;                  // Initial position x
     double y0;                  // Initial position y
+    double t_pfs_start;         // Time when 2D potential changes to second file
+    double t_pfs_end;           // Time when 2D potential changes back to first file
     unsigned int seed;          // Random number generator seed
     // char *potentialfile;       // Potential grid file
     std::string potential_file; // Potential grid file
+    std::string potential_file_second;// TN // second Potential grif file
 public:
     unsigned int Ntraj; // Number of trajectories
     int dimensions;     // Number of dimensions

@@ -18,6 +18,8 @@ class LevyFlight_base{
         double dt; // Time step
         double minDt; // Minimal time step
         double T; // End time
+        double t_pfs_start;         // Time when 2D potential changes to second file
+        double t_pfs_end;           // Time when 2D potential changes back to first file
         double eta; // Adaptive time step scaling factor
         double pow_dt_1_alpha; // Prefactor in Euler integration step
 
@@ -41,6 +43,10 @@ class LevyFlight_base{
         double getTimeStep();
         void setEndTime(double T_);
         double getEndTime();
+        void setTpfsStart(double tstart);
+        double getTpfsStart();
+        void setTpfsEnd(double tend);
+        double getTpfsEnd();
         void setEta(double eta_);
         double getEta();
         void setRandomNumberGenerator(unsigned int seed);

@@ -42,6 +42,17 @@ void LevyFlight_base::setEndTime(double T_){T=T_;}
 double LevyFlight_base::getEndTime(){return(T);}
 
 
+void LevyFlight_base::setTpfsStart(double tstart){t_pfs_start=tstart;}
+
+double LevyFlight_base::getTpfsStart(){return t_pfs_start;}
+
+
+void LevyFlight_base::setTpfsEnd(double tend){t_pfs_end=tend;}
+
+double LevyFlight_base::getTpfsEnd(){return t_pfs_end;}
+
+
+
 void LevyFlight_base::setEta(double eta_){eta=eta_;}
 
 

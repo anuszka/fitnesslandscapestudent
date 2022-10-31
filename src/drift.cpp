@@ -59,7 +59,7 @@ position2D dVdx_fitness_determ_test(position2D px)
     return (dvdx);
 }
 
-bool out_of_boundary_determ_test(position2D px)
+bool out_of_boundary_determ_test(position2D px,int file = 1)
 {
     // Potential > 0. is equivalent to fitness < 0.
     return (px.x < 0. || px.y < 0. || V_fitness_determ_test(px) > 0.);
@@ -72,16 +72,22 @@ bool no_boundary_check(position2D px)
 
 // TODO: [LEV-72] Define class for interpolation
 
-intrpl::intrpl(std::string potential_file_)
+intrpl::intrpl(std::string potential_file_, std::string potential_file_second)
 {
     myinterp = new Interpolation2D;
+    myinterp_second = new Interpolation2D;
     std::clog << "potential_file=" << potential_file_ << "\n";
+    std::clog << "potential_file_second=" << potential_file_second << "\n";
     griddata = new GridDataInterface(potential_file_);
+   
     myinterp->setData(*griddata);
     griddata_min_x = griddata->getXgrid().front();
     griddata_min_y = griddata->getYgrid().front();
     griddata_max_x = griddata->getXgrid().back();
     griddata_max_y = griddata->getYgrid().back();
+
+    griddata_second = new GridDataInterface(potential_file_second); 
+    myinterp_second->setData(*griddata_second);
 }
 
 double intrpl::V(position2D px)
@@ -89,7 +95,11 @@ double intrpl::V(position2D px)
     return (myinterp->getInterpolation(px.x, px.y));
 }
 
-position2D intrpl::dVdx(position2D px)
+double intrpl::V_second(position2D px){
+    return (myinterp_second->getInterpolation(px.x, px.y));
+}
+
+position2D intrpl::dVdx(position2D px)  // to jest wazne
 {
     position2D deriv;
     deriv.x = myinterp->getInterpolationDerivX(px.x, px.y);
@@ -97,7 +107,15 @@ position2D intrpl::dVdx(position2D px)
     return (deriv);
 }
 
-bool intrpl::out_of_boundary_test(position2D px)
+position2D intrpl::dVdx_second(position2D px)
+{
+    position2D deriv;
+    deriv.x = myinterp_second->getInterpolationDerivX(px.x, px.y);
+    deriv.y = myinterp_second->getInterpolationDerivY(px.x, px.y);
+    return (deriv);
+}
+
+bool intrpl::out_of_boundary_test(position2D px, int file = 1)
 {
     // Returns true when some bounds are exceeded
     bool x_less_than_lower_bdr = (px.x < griddata_min_x);
@@ -111,12 +129,16 @@ bool intrpl::out_of_boundary_test(position2D px)
         y_greater_than_upper_bdr)
         return (true);
     else
-        return (fitness_less_than_zero_test(px));
+        return (fitness_less_than_zero_test(px,file));
+    
 }
 
-bool intrpl::fitness_less_than_zero_test(position2D px)
+bool intrpl::fitness_less_than_zero_test(position2D px, int file = 1)
 {
     // Potential > 0. is equivalent to fitness < 0.
     // Returns true (= out of bounds) when potential > 0., i.e., when fitness < 0.
-    return (V(px) > 0.);
+    if(file==1)
+        return (V(px) > 0.);
+    else
+        return(V_second(px) > 0.);
 }

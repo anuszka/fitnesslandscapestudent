@@ -48,8 +48,8 @@ public:
     double *getGridX() { return (data_grid_x); }
     double *getGridY() { return (data_grid_y); }
 
-    double getInterpolation(double xi_, double yj_);
-    double getInterpolationDerivX(double xi_, double yj_);
+    double getInterpolation(double xi_, double yj_);    // dostajemy wartosc potencjalu pomiedzy punktami
+    double getInterpolationDerivX(double xi_, double yj_);  //nachylenie prostej - pochodna miedzy sasiednimi pkt na siatce
     double getInterpolationDerivY(double xi_, double yj_);
 };
 

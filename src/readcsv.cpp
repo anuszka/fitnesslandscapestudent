@@ -10,6 +10,7 @@ void Data::readHeaderFromFile(std::string line_)
 {
     std::string str;
     std::stringstream lineStream(line_);
+    
     for (int i = 0; i < 3; ++i)
     {
         std::getline(lineStream, str, ',');
@@ -54,13 +55,13 @@ Data::Data(const std::string &file_name_)
 {
     std::string line;
     std::ifstream file(file_name_.c_str());
-    
-    static bool first_line = true;
-    if (!file.good())
+    bool first_line = true;
+    if (!file.good()){
         handleFileErrors();
+    }
     else
         while (std::getline(file, line))
-        {
+        {   
             if (first_line)
             {
                 readHeaderFromFile(line);
@@ -68,5 +69,6 @@ Data::Data(const std::string &file_name_)
             }
             else
                 readColumnsFromFile(line);
+            
         }
 }

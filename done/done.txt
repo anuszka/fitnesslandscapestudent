@@ -1,0 +1,40 @@
+zmiany:
+    run.py: dodanie potentialfile_second do klasy i do parametrów symulacji
+
+    Makefile:   zmiana nazwy programu na Levyflight2.run
+
+    main.cpp:   linijka 10 - zamiana 14 na 15
+
+    levyflight_launch.cpp:  printUsage - dodanie potentialfile_second      
+                            parseArgs - dodanie potentialfile_second
+                            logParsed - dodanie potentialfile_second
+
+    drift.cpp/.h:   dodanie potentialfile_second do intrpl
+                    dodanie myinterp_second do intrpl
+                    dodanie griddata_second od intrpl
+                    dodanie metody dVdx_second
+
+    levyflight2D.h/cpp:   dodanie do setparam dUdx_second
+
+    levyflight_launch.h/cpp:  aktualizacja po zmianach w levyflight2D.h/cpp |^|   
+
+    readcsv.cpp: w klasie Data zamiana static bool first_line na zwykłego boola (powodował błędy przy drugim wykorzystaniu konstruktora)
+
+    run.py: dodanie parametrów zmiany otoczenia
+
+    levyflight_launch.h/cpp:    dodanie parametrów zmiany otoczenia
+    
+
+notatki:
+
+
+
+pomysły:
+    1. dodanie do klasy intrpl (drift.h) zmiennej myinterp_second dla drugiego pliku potencjału i stworzenie dla niej metody dVdx_second
+        |^| zrobione
+
+    2. dodanie parametrów zmiany otoczenia do argumentów main->levyflight_launch.
+        |^| zrobione
+        
+    3. pliki potencjału podane do maina w jakimś kontenerze (możliwość zastosowania wielu plików z otoczeniem) 
+    

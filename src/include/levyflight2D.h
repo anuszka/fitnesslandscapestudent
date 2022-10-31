@@ -13,14 +13,17 @@ protected:
 
     std::vector<timeposition2D> X; // Time + position vector, 1-D process
     double (*U)(position2D); // 2D potential
-    position2D (*dUdx)(position2D); // 2D drift: Gradient of the potential
-    bool (*out_of_boundary)(position2D X); // Check boundary
+    position2D (*dUdx)(position2D); // 2D drift: Gradient of the potential   
+    bool (*out_of_boundary)(position2D X, int); // Check boundary
+
+    position2D (*dUdx_second)(position2D);
 
     timeposition2D step(
         double delta_t,
         double prefactor,
         position2D gammadUdxXprev,
-        timeposition2D X_prev);
+        timeposition2D X_prev,
+        int file);
 
     void printTimePos(std::vector<timeposition2D> timepos);
 
@@ -41,11 +44,14 @@ public:
         double gamma,
         double (*func_U)(position2D),
         position2D (*func)(position2D),
-        bool (*func_bdr)(position2D),
+        position2D (*func_second)(position2D), // TN
+        bool (*func_bdr)(position2D,int),
         double dt,
         double minDt,
         double eta,
         double T,
+        double t_pfs_start,
+        double t_pfs_end,
         timeposition2D X0,
         unsigned int seed);
 

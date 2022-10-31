@@ -20,25 +20,29 @@ double V_fitness_determ_test(position2D px);
 
 position2D dVdx_fitness_determ_test(position2D px);
 
-bool out_of_boundary_determ_test(position2D px);
+bool out_of_boundary_determ_test(position2D px,int file);
 
 bool no_boundary_check(position2D px);
 
 class intrpl
 {
     public:
-    intrpl(std::string potential_file_);
+    intrpl(std::string potential_file_, std::string potential_file_second);
     ~intrpl(){delete myinterp; delete griddata;}
-    Interpolation2D *myinterp;
+    Interpolation2D *myinterp; // wskaznik do silnika liczacy interpolacje
+    Interpolation2D *myinterp_second; // TN
     GridDataInterface *griddata;
+    GridDataInterface *griddata_second; //TN
     double griddata_min_x;
     double griddata_min_y;
     double griddata_max_x;
     double griddata_max_y;
     double V(position2D px); 
+    double V_second(position2D px);
     position2D dVdx(position2D px);
-    bool out_of_boundary_test(position2D px);
-    bool fitness_less_than_zero_test(position2D px);
+    position2D dVdx_second(position2D px);
+    bool out_of_boundary_test(position2D px, int file);
+    bool fitness_less_than_zero_test(position2D px, int file);
 
 };
 

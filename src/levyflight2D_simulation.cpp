@@ -11,7 +11,8 @@ timeposition2D LevyFlight2D::step(
     double delta_t,
     double prefactor,
     position2D gammadUdxXprev,
-    timeposition2D X_prev)
+    timeposition2D X_prev,
+    int file)
 {
 
         timeposition2D X_new;
@@ -22,7 +23,7 @@ timeposition2D LevyFlight2D::step(
         {
                 X_new.pos.x = X_prev.pos.x - delta_t * gammadUdxXprev.x + prefactor * gsl_ran_levy(rng, D, alpha);
                 X_new.pos.y = X_prev.pos.y - delta_t * gammadUdxXprev.y + prefactor * gsl_ran_levy(rng, D, alpha);
-        } while (out_of_boundary(X_new.pos)); // TODO: [LEV-76] Chyba raczej while not out of boundary??
+        } while (out_of_boundary(X_new.pos,file)); // TODO: [LEV-76] Chyba raczej while not out of boundary??
         
         
         // Boundary condition for fitness landscape
@@ -58,6 +59,9 @@ void LevyFlight2D::runSimulation()
         double delta_t;
         double prefactor;
         double Dt;
+        int file = 1;
+        //static double tstart = 2;
+        //static double tend = 2;
         position2D gammadUdxXprev;
 
         X_prev = X0;
@@ -69,7 +73,16 @@ void LevyFlight2D::runSimulation()
                 // TODO: [LEV-23] How to calculate Dt for 2D?
                 // gammadUdxXprev = gamma * dUdx(X_prev.x);
                 // std::cout<<X_prev.t<<"\n";
-                gammadUdxXprev = gamma * dUdx(X_prev.pos);
+                if(X_prev.t < getTpfsStart() || X_prev.t > getTpfsEnd() || getTpfsStart() == getTpfsEnd() ){
+                        gammadUdxXprev = gamma * dUdx(X_prev.pos);
+                        file = 1;
+                }
+                       
+                 
+                if(getTpfsStart() <= X_prev.t && X_prev.t <= getTpfsEnd() && getTpfsStart() != getTpfsEnd() ){
+                        gammadUdxXprev = gamma * dUdx_second(X_prev.pos);
+                        file = 2;
+                }
 
                 if (notZero(gammadUdxXprev)) // denominator in eta * X_prev / gammadUdxXprev cannot be equal to 0
                 {
@@ -100,7 +113,7 @@ void LevyFlight2D::runSimulation()
                         prefactor = pow_dt_1_alpha;
                 }
 
-                X_new = step(delta_t, prefactor, gammadUdxXprev, X_prev);
+                X_new = step(delta_t, prefactor, gammadUdxXprev, X_prev, file);
                 setNewValues(X_new);
                 X_prev = X.back();
         }
