@@ -1,6 +1,7 @@
 #include <vector>
 #include "timeposition.h"
 #include "levyflight_base.h"
+#include "drift.h"
 
 #ifndef LEVYFLIGHT2D_H
 #define LEVYFLIGHT2D_H
@@ -10,11 +11,13 @@ class LevyFlight2D : public LevyFlight_base
 private:
 protected:
     timeposition2D X0; // Initial coordinates: time + position
-
+    
+    
     std::vector<timeposition2D> X; // Time + position vector, 1-D process
     double (*U)(position2D); // 2D potential
     position2D (*dUdx)(position2D); // 2D drift: Gradient of the potential   
     bool (*out_of_boundary)(position2D X, int); // Check boundary
+    GridDataInterface (*gdi)();
 
     position2D (*dUdx_second)(position2D);
 
@@ -53,7 +56,9 @@ public:
         double t_pfs_start,
         double t_pfs_end,
         timeposition2D X0,
-        unsigned int seed);
+        unsigned int seed,
+        GridDataInterface (*func_gdi)() = NULL
+        );
 
     void runSimulation() override;
     void printTraj() override;

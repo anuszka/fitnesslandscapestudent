@@ -1,6 +1,7 @@
 #ifndef LEVYFLIGHTLAUNCH_H
 #define LEVYFLIGHTLAUNCH_H
 
+#include "drift.h"
 class LevyFlightLaunch
 {
 private:

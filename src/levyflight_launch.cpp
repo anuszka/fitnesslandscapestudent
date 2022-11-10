@@ -148,7 +148,8 @@ void LevyFlightLaunch::launch_2D_1traj()
         t_pfs_start,
         t_pfs_end,
         X2D_0,
-        seed);
+        seed
+        );
 
     lf->runSimulation();
     lf->printTraj();
@@ -180,6 +181,11 @@ bool wrapperBdr(position2D px, int file = 1)
     return (intrpl_global_ptr->out_of_boundary_test(px, file)); // from drift.h
 }
 
+GridDataInterface wrapperGetGdi()
+{
+    return(intrpl_global_ptr->getGdi());
+}
+
 void LevyFlightLaunch::launch_2D_1traj_potential_file()
 {
     std::clog << "-------------launch_2D_1traj_potential_file()-----------\n";
@@ -207,7 +213,9 @@ void LevyFlightLaunch::launch_2D_1traj_potential_file()
         t_pfs_start,
         t_pfs_end,
         X2D_0,
-        seed);
+        seed,
+        &wrapperGetGdi
+        );
 
    
 
@@ -259,7 +267,8 @@ void LevyFlightLaunch::launch_2D_ensemble()
         t_pfs_start,
         t_pfs_end,
         X2D_0,
-        seed);
+        seed
+        );
 
     lf->runMultipleSimulations(Ntraj);
     lf->printLastPoints();
@@ -290,7 +299,9 @@ void LevyFlightLaunch::launch_2D_ensemble_potential_file()
         t_pfs_start,
         t_pfs_end,
         X2D_0,
-        seed);
+        seed,
+        &wrapperGetGdi
+        );
 
     lf->runMultipleSimulations(Ntraj);
     lf->printLastPoints();

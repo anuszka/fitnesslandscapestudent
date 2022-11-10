@@ -1,5 +1,6 @@
 #include <vector>
 #include "readcsv.h"
+#include "timeposition.h"
 
 #ifndef GRIDDATAINTERFACE
 #define GRIDDATAINTERFACE
@@ -41,6 +42,7 @@ public:
     double *getZvaluesAsArrayPtr() { return (z_values.data()); }
     void printGridValues();
     void printZvalues();
+    bool checkLevel(timeposition2D p);
 };
 
 #endif

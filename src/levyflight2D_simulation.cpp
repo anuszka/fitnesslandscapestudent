@@ -6,6 +6,7 @@
 #include "include/timeposition.h"
 #include "include/levyflight2D.h"
 #include "include/timeposition.h"
+#include "include/exp_random.h"
 
 timeposition2D LevyFlight2D::step(
     double delta_t,
@@ -54,6 +55,8 @@ double smallest_Dt_component(double eta, timeposition2D X_prev, position2D gamma
 void LevyFlight2D::runSimulation()
 {
 
+        std::map<double, int> timeRng = expRng(10, 30);
+        std::map<double, int>::iterator itr = timeRng.begin();
         timeposition2D X_prev;
         timeposition2D X_new;
         double delta_t;
@@ -63,7 +66,7 @@ void LevyFlight2D::runSimulation()
         //static double tstart = 2;
         //static double tend = 2;
         position2D gammadUdxXprev;
-
+        
         X_prev = X0;
 
         while (X_prev.t < T)
@@ -73,7 +76,7 @@ void LevyFlight2D::runSimulation()
                 // TODO: [LEV-23] How to calculate Dt for 2D?
                 // gammadUdxXprev = gamma * dUdx(X_prev.x);
                 // std::cout<<X_prev.t<<"\n";
-                if(X_prev.t < getTpfsStart() || X_prev.t > getTpfsEnd() || getTpfsStart() == getTpfsEnd() ){
+               /* if(X_prev.t < getTpfsStart() || X_prev.t > getTpfsEnd() || getTpfsStart() == getTpfsEnd() ){
                         gammadUdxXprev = gamma * dUdx(X_prev.pos);
                         file = 1;
                 }
@@ -82,6 +85,32 @@ void LevyFlight2D::runSimulation()
                 if(getTpfsStart() <= X_prev.t && X_prev.t <= getTpfsEnd() && getTpfsStart() != getTpfsEnd() ){
                         gammadUdxXprev = gamma * dUdx_second(X_prev.pos);
                         file = 2;
+                }*/
+
+                if(itr == timeRng.begin()){
+                       gammadUdxXprev = gamma * dUdx(X_prev.pos); 
+                }
+
+                if(X_prev.t > itr->first){
+
+                        
+                        itr++;
+
+                        if(file == 1){
+                                gammadUdxXprev = gamma * dUdx_second(X_prev.pos);
+                                file = 2;
+                        }
+                        else{
+                                gammadUdxXprev = gamma * dUdx(X_prev.pos);
+                                file = 1;
+                        }
+                
+                }else{
+                        if(file == 1){
+                                gammadUdxXprev = gamma * dUdx(X_prev.pos);
+                        }else{
+                                gammadUdxXprev = gamma * dUdx_second(X_prev.pos);
+                        }
                 }
 
                 if (notZero(gammadUdxXprev)) // denominator in eta * X_prev / gammadUdxXprev cannot be equal to 0
@@ -115,6 +144,10 @@ void LevyFlight2D::runSimulation()
 
                 X_new = step(delta_t, prefactor, gammadUdxXprev, X_prev, file);
                 setNewValues(X_new);
+
+                if(gdi().checkLevel(X_new)){
+                        break;
+                }
                 X_prev = X.back();
         }
 }

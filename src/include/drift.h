@@ -43,7 +43,7 @@ class intrpl
     position2D dVdx_second(position2D px);
     bool out_of_boundary_test(position2D px, int file);
     bool fitness_less_than_zero_test(position2D px, int file);
-
+    GridDataInterface getGdi();
 };
 
 

@@ -142,3 +142,8 @@ bool intrpl::fitness_less_than_zero_test(position2D px, int file = 1)
     else
         return(V_second(px) > 0.);
 }
+
+GridDataInterface intrpl::getGdi()
+{
+    return *griddata;
+}

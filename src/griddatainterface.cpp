@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 #include "include/griddatainterface.h"
 #include "include/readcsv.h"
 
@@ -122,4 +123,23 @@ void GridDataInterface::printZvalues()
             std::cout << value << "\n";
         std::cout << "z vector size: " << getZvalues().size() << "\n";
     }
+}
+
+bool GridDataInterface::checkLevel(timeposition2D p)
+{
+    bool t = false;
+    for(long long unsigned int i = 0; i < doc->X.size(); i++){
+       
+            if(round(p.pos.x) == doc->X[i] && round(p.pos.y) == doc->Y[i]){
+                if( doc->Z[i] < -700){
+                    t = true;
+                    break;
+                }
+                else{
+                    t = false;
+                    break;
+                }
+            }
+    }
+    return t;
 }
