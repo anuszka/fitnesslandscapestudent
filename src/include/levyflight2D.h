@@ -53,11 +53,10 @@ public:
         double minDt,
         double eta,
         double T,
-        double t_pfs_start,
-        double t_pfs_end,
         timeposition2D X0,
         unsigned int seed,
-        GridDataInterface (*func_gdi)() = NULL
+        GridDataInterface (*func_gdi)() = NULL,
+        int nt = 1
         );
 
     void runSimulation() override;

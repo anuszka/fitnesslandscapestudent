@@ -2,6 +2,7 @@
 #include <gsl/gsl_sf_exp.h>
 #include <string>
 #include <iostream>
+#include <cmath>
 #include "include/drift.h"
 #include "include/interpolation2d.h"
 #include "include/griddatainterface.h"
@@ -72,7 +73,7 @@ bool no_boundary_check(position2D px)
 
 // TODO: [LEV-72] Define class for interpolation
 
-intrpl::intrpl(std::string potential_file_, std::string potential_file_second)
+intrpl::intrpl(std::string potential_file_, std::string potential_file_second, int level)
 {
     myinterp = new Interpolation2D;
     myinterp_second = new Interpolation2D;
@@ -85,6 +86,10 @@ intrpl::intrpl(std::string potential_file_, std::string potential_file_second)
     griddata_min_y = griddata->getYgrid().front();
     griddata_max_x = griddata->getXgrid().back();
     griddata_max_y = griddata->getYgrid().back();
+
+    if(level != 0)
+        griddata->setLevel(level);
+    
 
     griddata_second = new GridDataInterface(potential_file_second); 
     myinterp_second->setData(*griddata_second);

@@ -14,6 +14,11 @@ private:
     std::vector<double> y_grid;
     std::vector<double> z_values;
     std::vector<double> collect_nonrepeating_values(std::vector<double> v);
+    std::vector<double> x_lvl;
+    std::vector<double> y_lvl;
+    std::vector<double> z_lvl;
+    bool isLvl = false;
+    int iterator;
     size_t x_grid_size;
     size_t y_grid_size;
     void setXgrid();
@@ -42,7 +47,11 @@ public:
     double *getZvaluesAsArrayPtr() { return (z_values.data()); }
     void printGridValues();
     void printZvalues();
-    bool checkLevel(timeposition2D p);
+    void setLevel(int lvl);
+    bool checkLevel(timeposition2D p, int ntraj);
+    bool isLevel() {return (isLvl);}
+    void showLastPoint(int ntraj);
+    void setItr(unsigned long long int *itr);
 };
 
 #endif

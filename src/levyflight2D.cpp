@@ -37,11 +37,10 @@ void LevyFlight2D::setParams(
         double minDt,
         double eta,
         double T,
-        double t_pfs_start,
-        double t_pfs_end,
         timeposition2D X0,
         unsigned int seed,
-        GridDataInterface (*func_gdi)()
+        GridDataInterface (*func_gdi)(),
+        int nt
         )
         {
         setAlpha(alpha);
@@ -56,11 +55,10 @@ void LevyFlight2D::setParams(
         setEta(eta);
         setPrefactor();
         setEndTime(T);
-        setTpfsStart(t_pfs_start);
-        setTpfsEnd(t_pfs_end);
         setInitialValues(X0);
         setRandomNumberGenerator(seed);
         gdi = func_gdi;
+        Ntraj = nt;
         }
 
 

@@ -23,11 +23,40 @@ zmiany:
     run.py: dodanie parametrów zmiany otoczenia
 
     levyflight_launch.h/cpp:    dodanie parametrów zmiany otoczenia
+
+    exp_random.h/cpp: nowa funkcja zwracająca n liczb losowych z rozkładu eksponencjalnego
+
+    griddatainterface.h/cpp:    dodanie metody checkLevel
+    levyflight2D.h/cpp: dodanie wskaźnika metody zwracajaca griddatainterface do parametrów w setparam
+    levyflight2D_simulation.cpp sprawdzanie poziomicy
+
+    Usuniecie t_pfs_start i t_pfs_end
+
+    griddatainterface.h/cpp: dodanie metody setLevel -> optymalizacja checkLevel
+
+    Dodanie poziomicy potencjalu do argumentow symulacji
+
+    Funkcja średniej i wariancji w griddatainterface
+
+    
     
 
 notatki:
+3.11.2022r:
+    jak mamy krajobraz dostoswania - gdy puszczamy spacer losowy napisać kod który mierzy czas od pkt początkowego do obszaru końcowego sym ma się kończyć
+    przy dotarciu do tego obszaru - poziomica od jakiegoś potencjału (granatowe)
+    potem
+    sprawdzić przy ensemble i zrobić statystykę czasu
 
+    losowo ma się przełączać - proces poissona - liczby losowe z rozkładu expotencjalnego
 
+    srednia czasu dotarcia - zbierac czasy
+
+10.11.2022r:
+    zapisy miejsc gdzie sie zatrzymalo
+    diagnostyka czy za wczesnie sie nie konczylo
+    funckje do sredniej, wariancji itd
+    
 
 pomysły:
     1. dodanie do klasy intrpl (drift.h) zmiennej myinterp_second dla drugiego pliku potencjału i stworzenie dla niej metody dVdx_second
@@ -36,5 +65,5 @@ pomysły:
     2. dodanie parametrów zmiany otoczenia do argumentów main->levyflight_launch.
         |^| zrobione
         
-    3. pliki potencjału podane do maina w jakimś kontenerze (możliwość zastosowania wielu plików z otoczeniem) 
+
     

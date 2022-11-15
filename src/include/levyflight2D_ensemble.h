@@ -11,9 +11,17 @@ class LevyFlight2DEnsemble : public LevyFlight2D{
         void setNewValues(
             timeposition2D X_
             ) override;
+
+        double avg;
+        double variance;
+        
     public:
         void runMultipleSimulations(int N);
         void printLastPoints();
+        void averageTime();
+        void varianceTime();
 };
+
+
 
 #endif

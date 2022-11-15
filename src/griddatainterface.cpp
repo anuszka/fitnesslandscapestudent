@@ -125,21 +125,43 @@ void GridDataInterface::printZvalues()
     }
 }
 
-bool GridDataInterface::checkLevel(timeposition2D p)
+void GridDataInterface::setItr(unsigned long long int *itr){
+    iterator = *itr;
+}
+
+void GridDataInterface::setLevel(int lvl)
+{
+    for(long long unsigned int i = 0; i < doc->Z.size(); i++)
+    {
+        if(doc->Z[i] < lvl){
+            x_lvl.push_back(doc->X[i]);
+            y_lvl.push_back(doc->Y[i]);
+            z_lvl.push_back(doc->Z[i]);
+        }
+    }
+
+    isLvl = true;
+}
+
+bool GridDataInterface::checkLevel(timeposition2D p, int ntraj)
 {
     bool t = false;
-    for(long long unsigned int i = 0; i < doc->X.size(); i++){
+    for(long long unsigned int i = 0; i < x_lvl.size(); i++){
        
-            if(round(p.pos.x) == doc->X[i] && round(p.pos.y) == doc->Y[i]){
-                if( doc->Z[i] < -700){
-                    t = true;
-                    break;
-                }
-                else{
-                    t = false;
-                    break;
-                }
+            if(round(p.pos.x) == x_lvl[i] && round(p.pos.y) == y_lvl[i]){
+                setItr(&i);
+                showLastPoint(ntraj);
+                t = true;
             }
     }
     return t;
+}
+
+void GridDataInterface::showLastPoint(int ntraj){
+
+    if( ntraj == 1)
+        std::clog << "Simulation stopped at:\nX: " << x_lvl[iterator] << "\n"
+                                            <<"Y: " << y_lvl[iterator] << "\n"
+                                            <<"Z: " << z_lvl[iterator] << "\n";
+
 }

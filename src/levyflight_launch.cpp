@@ -26,8 +26,7 @@ void LevyFlightLaunch::printUsage()
     printf("y0: Initial position y\n");
     printf("potentialfile: Path to the data file with 2D potential as a grid\n");
     printf("potentialfile_second: Path to the second data file with 2D potential as a grid\n");
-    printf("t_pfs_start: Time when 2D potential changes to second file\n");
-    printf("t_pfs_end: Time when 2D potential changes back to first file\n");
+    printf("lvl: Potential level on which the simulation stops");
     printf("Ntraj: Number of trajectories\n");
     printf("seed: Random number generator seed\n\n");
     printf("If no Ntraj is given, the number of trajectories Ntraj=1\n");
@@ -55,11 +54,10 @@ void LevyFlightLaunch::parseArgs()
     else
         dimensions = 2;
 
-    parse_args("t_pfs_start", t_pfs_start, argc, argv);
-    parse_args("t_pfs_end", t_pfs_end, argc, argv);
     parse_args("potentialfile", potential_file, argc, argv);
     parse_args("potentialfile_second", potential_file_second, argc, argv);
 
+    parse_args("lvl", lvl, argc ,argv);
 
     if (!parse_args("seed", seed, argc, argv))
         seed = setRngSeed();
@@ -85,14 +83,7 @@ void LevyFlightLaunch::logParsed()
         std::clog << "potential_file_second = " << potential_file_second << "\n";
     }
     
-    if(t_pfs_start == t_pfs_end){
-        std::clog << "2D potential does not change. \n";
-    }
-    else{   
-        std::clog << "t_pfs_start = " << t_pfs_start << "\n";
-        std::clog << "t_pfs_end = " << t_pfs_end << "\n";
-    }
-
+    std::clog << "lvl = " << lvl << "\n";
     std::clog << "seed = " << seed << "\n";
     std::clog << "Ntraj = " << Ntraj << "\n";
     if (Ntraj == 1)
@@ -145,8 +136,6 @@ void LevyFlightLaunch::launch_2D_1traj()
         minDt,
         eta,
         T,
-        t_pfs_start,
-        t_pfs_end,
         X2D_0,
         seed
         );
@@ -189,7 +178,7 @@ GridDataInterface wrapperGetGdi()
 void LevyFlightLaunch::launch_2D_1traj_potential_file()
 {
     std::clog << "-------------launch_2D_1traj_potential_file()-----------\n";
-    intrpl_global_ptr = new intrpl(potential_file, potential_file_second); // from drift.h // inicjalizacja silniku do liczenia interpolacji
+    intrpl_global_ptr = new intrpl(potential_file, potential_file_second, lvl); // from drift.h // inicjalizacja silniku do liczenia interpolacji
 
      
 
@@ -210,8 +199,6 @@ void LevyFlightLaunch::launch_2D_1traj_potential_file()
         minDt,
         eta,
         T,
-        t_pfs_start,
-        t_pfs_end,
         X2D_0,
         seed,
         &wrapperGetGdi
@@ -264,10 +251,10 @@ void LevyFlightLaunch::launch_2D_ensemble()
         minDt,
         eta,
         T,
-        t_pfs_start,
-        t_pfs_end,
         X2D_0,
-        seed
+        seed,
+        NULL,
+        Ntraj
         );
 
     lf->runMultipleSimulations(Ntraj);
@@ -277,7 +264,7 @@ void LevyFlightLaunch::launch_2D_ensemble()
 void LevyFlightLaunch::launch_2D_ensemble_potential_file()
 {
     std::clog << "-------------launch_2D_ensemble_potential_file()-----------\n";
-    intrpl_global_ptr = new intrpl(potential_file, potential_file_second); // from drift.h
+    intrpl_global_ptr = new intrpl(potential_file, potential_file_second, lvl); // from drift.h
 
     LevyFlight2DEnsemble *lf = new LevyFlight2DEnsemble();
     timeposition2D X2D_0;
@@ -296,13 +283,14 @@ void LevyFlightLaunch::launch_2D_ensemble_potential_file()
         minDt,
         eta,
         T,
-        t_pfs_start,
-        t_pfs_end,
         X2D_0,
         seed,
-        &wrapperGetGdi
+        &wrapperGetGdi,
+        Ntraj
         );
 
     lf->runMultipleSimulations(Ntraj);
     lf->printLastPoints();
+    lf->averageTime();
+    lf->varianceTime();
 }
