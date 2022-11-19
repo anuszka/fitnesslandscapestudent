@@ -27,7 +27,7 @@ bool no_boundary_check(position2D px);
 class intrpl
 {
     public:
-    intrpl(std::string potential_file_, std::string potential_file_second, int level);
+    intrpl(std::string potential_file_, std::string potential_file_second, int kmr1, int kmr2, int kr1, int kr2);
     ~intrpl(){delete myinterp; delete griddata;}
     Interpolation2D *myinterp; // wskaznik do silnika liczacy interpolacje
     Interpolation2D *myinterp_second; // TN

@@ -17,6 +17,10 @@ private:
     double t0;                  // Initial time
     double x0;                  // Initial position x
     double y0;                  // Initial position y
+    double kmr1;                // Lower limit of kmr
+    double kmr2;                // Upper limit of kmr
+    double kr1;                 // Lower limit of kr
+    double kr2;                 // Upper limit of kr
     int lvl;                    // Potential level
     unsigned int seed;          // Random number generator seed
     // char *potentialfile;       // Potential grid file

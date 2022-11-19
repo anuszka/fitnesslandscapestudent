@@ -140,7 +140,7 @@ void GridDataInterface::setLevel(int lvl)
         }
     }
 
-    isLvl = true;
+    isAr = true;
 }
 
 bool GridDataInterface::checkLevel(timeposition2D p, int ntraj)
@@ -150,18 +150,52 @@ bool GridDataInterface::checkLevel(timeposition2D p, int ntraj)
        
             if(round(p.pos.x) == x_lvl[i] && round(p.pos.y) == y_lvl[i]){
                 setItr(&i);
-                showLastPoint(ntraj);
+                if(ntraj == 1)
+                    showLastPoint(p);
+
                 t = true;
             }
     }
     return t;
 }
 
-void GridDataInterface::showLastPoint(int ntraj){
+void GridDataInterface::showLastPoint(timeposition2D p){
 
-    if( ntraj == 1)
-        std::clog << "Simulation stopped at:\nX: " << x_lvl[iterator] << "\n"
-                                            <<"Y: " << y_lvl[iterator] << "\n"
-                                            <<"Z: " << z_lvl[iterator] << "\n";
+    std::clog << "Simulation stopped at:\nX: " << round(p.pos.x) << "\n"
+                                            <<"Y: " << round(p.pos.y) << "\n"
+                                            <<"Z: " << findPotential(p) << "\n";
 
+}
+
+void GridDataInterface::setArea(int kmr1, int kmr2, int kr1, int kr2){
+    x1 = kmr1;
+    x2 = kmr2;
+    y1 = kr1;
+    y2 = kr2;
+
+    isAr = true;
+}
+
+double GridDataInterface::findPotential(timeposition2D p){
+    for(long long unsigned int i = 0; doc->Z.size(); i++){
+            if(round(p.pos.x) == doc->X[i] && round(p.pos.y) == doc->Y[i]){
+                return doc->Z[i];
+            }
+    }
+    return 0;
+}
+
+
+bool GridDataInterface::checkArea(timeposition2D p, int ntraj){
+
+    bool t = false;
+
+    if( p.pos.x >= x1 && p.pos.x <= x2 && p.pos.y >= y1 && p.pos.y <= y2 ){ 
+        if(ntraj == 1)
+            showLastPoint(p);
+            
+        t = true;
+    }
+
+    return t;
 }

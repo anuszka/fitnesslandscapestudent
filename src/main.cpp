@@ -7,7 +7,7 @@
 int main(int argc, char **argv)
 {
     LevyFlightLaunch lfl(argc, argv);
-    if (argc < 10 || argc > 16) // TN 14 -> 15   15 -> 16
+    if (argc < 10 || argc > 19) // TN 14 -> 15   15 -> 16   16 -> 19
         lfl.printUsage();
 
     else

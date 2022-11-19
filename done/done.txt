@@ -56,6 +56,9 @@ notatki:
     zapisy miejsc gdzie sie zatrzymalo
     diagnostyka czy za wczesnie sie nie konczylo
     funckje do sredniej, wariancji itd
+
+17.11.2022r:
+	dochodzimy do pkt a nie do poziomu np kmr = 100 nie zależnie od otoczenia i kr pomiędzy 10 a 20
     
 
 pomysły:

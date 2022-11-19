@@ -17,7 +17,10 @@ def run(
     t0 : float,
     x0 : float,
     y0 : float,
-    lvl : int = np.NaN,
+    kmr1 : float,
+    kmr2 : float,
+    kr1 : float,
+    kr2 : float,
     Ntraj: int = 1,
     seed : int = np.NaN,
     potentialfile : str="",
@@ -29,9 +32,9 @@ def run(
 
     if potentialfile and potentialfile_second: #TN
         if np.isnan(seed):
-            params=f"--alpha={alpha} --D={D} --gamma={gamma} --dt={dt} --minDt={minDt} --eta={eta} --T={T} --t0={t0} --x0={x0} --y0={y0} --lvl={lvl} --Ntraj={Ntraj} --potentialfile={potentialfile} --potentialfile_second={potentialfile_second}"
+            params=f"--alpha={alpha} --D={D} --gamma={gamma} --dt={dt} --minDt={minDt} --eta={eta} --T={T} --t0={t0} --x0={x0} --y0={y0} --kmr1={kmr1} --kmr2={kmr2} --kr1={kr1} --kr2={kr2} --Ntraj={Ntraj} --potentialfile={potentialfile} --potentialfile_second={potentialfile_second}"
         else:
-            params=f"--alpha={alpha} --D={D} --gamma={gamma} --dt={dt} --minDt={minDt} --eta={eta} --T={T} --t0={t0} --x0={x0} --y0={y0} --lvl={lvl} --Ntraj={Ntraj} --seed={seed} --potentialfile={potentialfile} --potentialfile_second={potentialfile_second}"
+            params=f"--alpha={alpha} --D={D} --gamma={gamma} --dt={dt} --minDt={minDt} --eta={eta} --T={T} --t0={t0} --x0={x0} --y0={y0} --kmr1={kmr1} --kmr2={kmr2} --kr1={kr1} --kr2={kr2} --Ntraj={Ntraj} --seed={seed} --potentialfile={potentialfile} --potentialfile_second={potentialfile_second}"
    
     if not potentialfile_second: #TN
 
@@ -39,17 +42,17 @@ def run(
 
         if potentialfile:
             if np.isnan(seed):
-                params=f"--alpha={alpha} --D={D} --gamma={gamma} --dt={dt} --minDt={minDt} --eta={eta} --T={T} --t0={t0} --x0={x0} --y0={y0} --lvl={lvl} --Ntraj={Ntraj} --potentialfile={potentialfile} --potentialfile_second={potentialfile_second}"
+                params=f"--alpha={alpha} --D={D} --gamma={gamma} --dt={dt} --minDt={minDt} --eta={eta} --T={T} --t0={t0} --x0={x0} --y0={y0} --kmr1={kmr1} --kmr2={kmr2} --kr1={kr1} --kr2={kr2} --Ntraj={Ntraj} --potentialfile={potentialfile} --potentialfile_second={potentialfile_second}"
             else:
-                params=f"--alpha={alpha} --D={D} --gamma={gamma} --dt={dt} --minDt={minDt} --eta={eta} --T={T} --t0={t0} --x0={x0} --y0={y0} --Ntraj={Ntraj} --seed={seed} --potentialfile={potentialfile} --potentialfile_second={potentialfile_second}"
+                params=f"--alpha={alpha} --D={D} --gamma={gamma} --dt={dt} --minDt={minDt} --eta={eta} --T={T} --t0={t0} --x0={x0} --y0={y0} --kmr1={kmr1} --kmr2={kmr2} --kr1={kr1} --kr2={kr2} --Ntraj={Ntraj} --seed={seed} --potentialfile={potentialfile} --potentialfile_second={potentialfile_second}"
     
 
 
         if not potentialfile: #TN 
             if np.isnan(seed):
-                params=f"--alpha={alpha} --D={D} --gamma={gamma} --dt={dt} --minDt={minDt} --eta={eta} --T={T} --t0={t0} --x0={x0} --y0={y0} --lvl={lvl} --Ntraj={Ntraj}"
+                params=f"--alpha={alpha} --D={D} --gamma={gamma} --dt={dt} --minDt={minDt} --eta={eta} --T={T} --t0={t0} --x0={x0} --y0={y0} --kmr1={kmr1} --kmr2={kmr2} --kr1={kr1} --kr2={kr2} --Ntraj={Ntraj}"
             else:
-                params=f"--alpha={alpha} --D={D} --gamma={gamma} --dt={dt} --minDt={minDt} --eta={eta} --T={T} --t0={t0} --x0={x0} --y0={y0} --lvl={lvl} --Ntraj={Ntraj} --seed={seed}"
+                params=f"--alpha={alpha} --D={D} --gamma={gamma} --dt={dt} --minDt={minDt} --eta={eta} --T={T} --t0={t0} --x0={x0} --y0={y0} --kmr1={kmr1} --kmr2={kmr2} --kr1={kr1} --kr2={kr2} --Ntraj={Ntraj} --seed={seed}"
     
 
 

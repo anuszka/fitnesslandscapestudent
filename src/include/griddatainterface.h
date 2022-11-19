@@ -17,8 +17,12 @@ private:
     std::vector<double> x_lvl;
     std::vector<double> y_lvl;
     std::vector<double> z_lvl;
-    bool isLvl = false;
-    int iterator;
+    bool isAr = false;
+    int iterator;    
+    int x1;
+    int x2;
+    int y1;
+    int y2;
     size_t x_grid_size;
     size_t y_grid_size;
     void setXgrid();
@@ -49,9 +53,12 @@ public:
     void printZvalues();
     void setLevel(int lvl);
     bool checkLevel(timeposition2D p, int ntraj);
-    bool isLevel() {return (isLvl);}
-    void showLastPoint(int ntraj);
+    bool isArea() {return (isAr);}
+    void showLastPoint(timeposition2D p);
     void setItr(unsigned long long int *itr);
+    void setArea(int kmr1, int kmr2, int kr1, int kr2);
+    double findPotential(timeposition2D p);
+    bool checkArea(timeposition2D p, int ntraj);
 };
 
 #endif

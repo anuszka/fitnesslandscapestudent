@@ -136,7 +136,7 @@ void LevyFlight2D::runSimulation()
                 setNewValues(X_new);
 
                 
-                if(gdi().checkLevel(X_new, Ntraj)){
+                if(gdi().isArea() && gdi().checkArea(X_new, Ntraj)){
                         break;
                 }
                 

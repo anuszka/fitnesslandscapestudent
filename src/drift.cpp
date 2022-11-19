@@ -73,7 +73,7 @@ bool no_boundary_check(position2D px)
 
 // TODO: [LEV-72] Define class for interpolation
 
-intrpl::intrpl(std::string potential_file_, std::string potential_file_second, int level)
+intrpl::intrpl(std::string potential_file_, std::string potential_file_second, int kmr1, int kmr2, int kr1, int kr2)
 {
     myinterp = new Interpolation2D;
     myinterp_second = new Interpolation2D;
@@ -87,8 +87,7 @@ intrpl::intrpl(std::string potential_file_, std::string potential_file_second, i
     griddata_max_x = griddata->getXgrid().back();
     griddata_max_y = griddata->getYgrid().back();
 
-    if(level != 0)
-        griddata->setLevel(level);
+    griddata->setArea(kmr1, kmr2, kr1 ,kr2);
     
 
     griddata_second = new GridDataInterface(potential_file_second); 

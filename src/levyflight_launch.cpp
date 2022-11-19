@@ -24,6 +24,10 @@ void LevyFlightLaunch::printUsage()
     printf("t0: Initial time\n");
     printf("x0: Initial position x\n");
     printf("y0: Initial position y\n");
+    printf("kmr1 : Lower limit of kmr\n");
+    printf("kmr2: Upper limit of kmr\n");
+    printf("kr1: Lower limit of kr\n");
+    printf("kr2: Upper limt of kr\n");
     printf("potentialfile: Path to the data file with 2D potential as a grid\n");
     printf("potentialfile_second: Path to the second data file with 2D potential as a grid\n");
     printf("lvl: Potential level on which the simulation stops");
@@ -54,6 +58,11 @@ void LevyFlightLaunch::parseArgs()
     else
         dimensions = 2;
 
+    parse_args("kmr1", kmr1, argc, argv);
+    parse_args("kmr2", kmr2, argc, argv);
+    parse_args("kr1", kr1, argc, argv);
+    parse_args("kr2", kr2, argc, argv);
+
     parse_args("potentialfile", potential_file, argc, argv);
     parse_args("potentialfile_second", potential_file_second, argc, argv);
 
@@ -83,7 +92,10 @@ void LevyFlightLaunch::logParsed()
         std::clog << "potential_file_second = " << potential_file_second << "\n";
     }
     
-    std::clog << "lvl = " << lvl << "\n";
+    std::clog << "kmr1 = " << kmr1 << "\n";
+    std::clog << "kmr2 = " << kmr2 << "\n";
+    std::clog << "kr1 = " << kr1 << "\n";
+    std::clog << "kr2 = " << kr2 << "\n";
     std::clog << "seed = " << seed << "\n";
     std::clog << "Ntraj = " << Ntraj << "\n";
     if (Ntraj == 1)
@@ -178,7 +190,7 @@ GridDataInterface wrapperGetGdi()
 void LevyFlightLaunch::launch_2D_1traj_potential_file()
 {
     std::clog << "-------------launch_2D_1traj_potential_file()-----------\n";
-    intrpl_global_ptr = new intrpl(potential_file, potential_file_second, lvl); // from drift.h // inicjalizacja silniku do liczenia interpolacji
+    intrpl_global_ptr = new intrpl(potential_file, potential_file_second, kmr1, kmr2, kr1, kr2); // from drift.h // inicjalizacja silniku do liczenia interpolacji
 
      
 
@@ -264,7 +276,7 @@ void LevyFlightLaunch::launch_2D_ensemble()
 void LevyFlightLaunch::launch_2D_ensemble_potential_file()
 {
     std::clog << "-------------launch_2D_ensemble_potential_file()-----------\n";
-    intrpl_global_ptr = new intrpl(potential_file, potential_file_second, lvl); // from drift.h
+    intrpl_global_ptr = new intrpl(potential_file, potential_file_second, kmr1, kmr2, kr1, kr2); // from drift.h
 
     LevyFlight2DEnsemble *lf = new LevyFlight2DEnsemble();
     timeposition2D X2D_0;
