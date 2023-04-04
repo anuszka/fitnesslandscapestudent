@@ -7,7 +7,7 @@
 # *.dat
 # *.csv
 # *.out
-# output/
+output/
 
 # compiled C++ files
 *.run
