@@ -3,8 +3,7 @@ import numpy as np
 import pandas as pd
 import os
 
-def run(
-    output_dir : str,
+def run(output_dir : str,
     output_data_file : str,
     output_log_file : str,
     alpha : float,
@@ -12,7 +11,7 @@ def run(
     gamma : float,
     dt : float,
     minDt : float,
-    eta : float,z
+    eta : float,
     T :float,
     t0 : float,
     x0 : float,
@@ -24,7 +23,7 @@ def run(
     Ntraj: int = 1,
     seed : int = np.NaN,
     potentialfile : str="",
-    potentialfile_second : str="" #TN
+    potentialfile_second : str=""
     ) -> None:
     
     if not potentialfile and potentialfile_second: #TN
