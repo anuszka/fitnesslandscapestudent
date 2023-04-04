@@ -12,7 +12,7 @@ def run(
     gamma : float,
     dt : float,
     minDt : float,
-    eta : float,
+    eta : float,z
     T :float,
     t0 : float,
     x0 : float,
