@@ -24,7 +24,7 @@ def init()->dict:
 
 
     T1=5000.0
-    Ntraj1= 5000 # Takes some time
+    Ntraj1= 100 # Takes some time
     dt1= 0.1 #0.001
     minDt = 0. #1e-1
     eta=0.1
