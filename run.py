@@ -54,7 +54,7 @@ def run(output_dir : str,
 
 
     line1=f"echo 't,x,y'>{output_dir}{output_data_file}"
-    line2=f"./LevyFlight.run {params} >> {output_dir}{output_data_file} 2>{output_dir}{output_log_file}"
+    line2=f"./LevyFlight.run {params} >> {output_dir}{output_data_file} 2>>{output_dir}{output_log_file}"
     os.system(line1)
     os.system(line2)
     return
