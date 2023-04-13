@@ -6,6 +6,7 @@ from run_ensemble_simulation import run_ensemble_simulation
 
 def runmfpt():
     """Run ensemble simulation in loop
+    Settings are given by init() function from settings.py
     """    
     os.system('cd ./output/; rm *.csv; rm *.log')
     params=init()
