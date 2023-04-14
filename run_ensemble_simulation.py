@@ -1,12 +1,8 @@
-import random
-import time
-import sys
-
 from run import run
 from types import SimpleNamespace
 
 
-def run_ensemble_simulation(alpha:float, params:dict)->str:
+def run_ensemble_simulation(alpha:float, seed:int, params:dict)->str:
     """Run ensemble simulation with a chosen value of the Levy flight parameter alpha.  
     The simulation switches landscape 0 and landscape 1 in time.
     The function generates a file with columns: t,x,y. t: simulation end (here: when
@@ -21,10 +17,9 @@ def run_ensemble_simulation(alpha:float, params:dict)->str:
         output_data_file (str):
     """   
     n = SimpleNamespace(**params)
-    random.seed(time.time())
     
     output_data_file=f"outT{n.T1:.0e}N{n.Ntraj1:.0e}dt{n.dt1:.0e}alpha{alpha:.2e}_ensemble.csv"
-    
+    # print(f"run_ensemble_simulation.py: seed={seed}")
     run(
         n.output_dir,
         output_data_file,
@@ -44,7 +39,7 @@ def run_ensemble_simulation(alpha:float, params:dict)->str:
         kr1=n.kr1,
         kr2=n.kr2,
         Ntraj=n.Ntraj1,
-        seed = random.randrange(10000), # ?? Does it work here?
+        seed = seed, # ?? Does it work here?
         potentialfile=n.potentialfile1,
         potentialfile_second=n.potentialfile2
     )
