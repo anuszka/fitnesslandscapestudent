@@ -44,7 +44,7 @@ def init()->dict:
     kmr2=100.
 
     alpha_min=0.1
-    alpha_max=0.3
+    alpha_max=1.9
     alpha_step=0.1
 
     random.seed(time.time())
