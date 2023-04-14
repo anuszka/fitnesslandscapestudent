@@ -51,7 +51,7 @@ def run(output_dir : str,
             else:
                 params=f"--alpha={alpha} --D={D} --gamma={gamma} --dt={dt} --minDt={minDt} --eta={eta} --T={T} --t0={t0} --x0={x0} --y0={y0} --kmr1={kmr1} --kmr2={kmr2} --kr1={kr1} --kr2={kr2} --Ntraj={Ntraj} --seed={seed}"
     
-
+    # print(f"run.py seed={seed}")
 
     line1=f"echo 't,x,y'>{output_dir}{output_data_file}"
     line2=f"./LevyFlight.run {params} >> {output_dir}{output_data_file} 2>>{output_dir}{output_log_file}"

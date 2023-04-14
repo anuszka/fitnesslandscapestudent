@@ -1,4 +1,7 @@
 import pandas as pd
+import random
+import time
+import numpy as np
 
 
 def init()->dict:
@@ -22,6 +25,8 @@ def init()->dict:
     for i in range (Ndatafiles):
         dfv.append(pd.read_csv(input_dir+input_data_files[i]))
 
+    
+
 
     T1=5000.0
     Ntraj1= 1 # Takes some time
@@ -39,9 +44,15 @@ def init()->dict:
     kmr2=100.
 
     alpha_min=0.1
-    alpha_max=2.0
+    alpha_max=0.3
     alpha_step=0.1
 
+    random.seed(time.time())
+    seeds=[]
+    for alpha in np.arange(alpha_min,alpha_max,alpha_step):
+        seeds.append(random.randrange(100000))
+    # display(seeds)
+    
     params=dict(
         input_dir=input_dir,
         input_data_file1 =input_data_file1,
@@ -68,6 +79,7 @@ def init()->dict:
         kmr2=kmr2,
         alpha_min=alpha_min,
         alpha_max=alpha_max,
-        alpha_step=alpha_step
+        alpha_step=alpha_step,
+        seeds=seeds
         )
     return params
