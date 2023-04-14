@@ -76,33 +76,33 @@ void LevyFlightLaunch::parseArgs()
 
 void LevyFlightLaunch::logParsed()
 {
-    std::clog << "alpha = " << alpha << "\n";
-    std::clog << "D = " << D << "\n";
-    std::clog << "gamma = " << gamma << "\n";
-    std::clog << "dt = " << dt << "\n";
-    std::clog << "minDt = " << minDt << "\n";
-    std::clog << "eta = " << eta << "\n";
-    std::clog << "T = " << T << "\n";
-    std::clog << "t0 = " << t0 << "\n";
-    std::clog << "x0 = " << x0 << "\n";
+    std::clog << "alpha = " << alpha << "\n"<<std::flush;
+    std::clog << "D = " << D << "\n"<<std::flush;
+    std::clog << "gamma = " << gamma << "\n"<<std::flush;
+    std::clog << "dt = " << dt << "\n"<<std::flush;
+    std::clog << "minDt = " << minDt << "\n"<<std::flush;
+    std::clog << "eta = " << eta << "\n"<<std::flush;
+    std::clog << "T = " << T << "\n"<<std::flush;
+    std::clog << "t0 = " << t0 << "\n"<<std::flush;
+    std::clog << "x0 = " << x0 << "\n"<<std::flush;
     if (dimensions == 2)
     {
-        std::clog << "y0 = " << y0 << "\n";
-        std::clog << "potential_file = " << potential_file << "\n";
-        std::clog << "potential_file_second = " << potential_file_second << "\n";
+        std::clog << "y0 = " << y0 << "\n"<<std::flush;
+        std::clog << "potential_file = " << potential_file << "\n"<<std::flush;
+        std::clog << "potential_file_second = " << potential_file_second << "\n"<<std::flush;
     }
     
-    std::clog << "kmr1 = " << kmr1 << "\n";
-    std::clog << "kmr2 = " << kmr2 << "\n";
-    std::clog << "kr1 = " << kr1 << "\n";
-    std::clog << "kr2 = " << kr2 << "\n";
-    std::clog << "seed = " << seed << "\n";
-    std::clog << "Ntraj = " << Ntraj << "\n";
+    std::clog << "kmr1 = " << kmr1 << "\n"<<std::flush;
+    std::clog << "kmr2 = " << kmr2 << "\n"<<std::flush;
+    std::clog << "kr1 = " << kr1 << "\n"<<std::flush;
+    std::clog << "kr2 = " << kr2 << "\n"<<std::flush;
+    std::clog << "seed = " << seed << "\n"<<std::flush;
+    std::clog << "Ntraj = " << Ntraj << "\n"<<std::flush;
     if (Ntraj == 1)
-        std::clog << "Whole single trajectory will be printed as the output.\n";
+        std::clog << "Whole single trajectory will be printed as the output."<<"\n"<<std::flush;
     else
-        std::clog << "Only end points of the " << Ntraj << " trajectories will be printed as the output.\n";
-    std::clog << "Running the simulation...\n\n";
+        std::clog << "Only end points of the " << Ntraj << " trajectories will be printed as the output."<<"\n"<<std::flush;
+    std::clog << "Running the simulation...\n"<<"\n"<<std::flush;
 }
 
 void LevyFlightLaunch::launch_1D_1traj()
@@ -130,7 +130,7 @@ void LevyFlightLaunch::launch_1D_1traj()
 // TODO: [LEV-65] Initialize potential as grid data from file.
 void LevyFlightLaunch::launch_2D_1traj()
 {
-    std::clog << "----------launch_2D_1traj()--------------\n";
+    std::clog << "----------launch_2D_1traj()--------------"<<"\n"<<std::flush;
     LevyFlight2D *lf = new LevyFlight2D();
     timeposition2D X2D_0;
     X2D_0.t = t0;
@@ -189,7 +189,7 @@ GridDataInterface wrapperGetGdi()
 
 void LevyFlightLaunch::launch_2D_1traj_potential_file()
 {
-    std::clog << "-------------launch_2D_1traj_potential_file()-----------\n";
+    std::clog << "-------------launch_2D_1traj_potential_file()-----------"<<"\n"<<std::flush;
     intrpl_global_ptr = new intrpl(potential_file, potential_file_second, kmr1, kmr2, kr1, kr2); // from drift.h // inicjalizacja silniku do liczenia interpolacji
 
      
@@ -275,7 +275,7 @@ void LevyFlightLaunch::launch_2D_ensemble()
 
 void LevyFlightLaunch::launch_2D_ensemble_potential_file()
 {
-    std::clog << "-------------launch_2D_ensemble_potential_file()-----------\n";
+    std::clog << "-------------launch_2D_ensemble_potential_file()-----------"<<"\n"<<std::flush;
     intrpl_global_ptr = new intrpl(potential_file, potential_file_second, kmr1, kmr2, kr1, kr2); // from drift.h
 
     LevyFlight2DEnsemble *lf = new LevyFlight2DEnsemble();
