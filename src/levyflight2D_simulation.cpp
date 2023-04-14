@@ -51,9 +51,7 @@ double smallest_Dt_component(double eta, timeposition2D X_prev, position2D gamma
 
 void LevyFlight2D::runSimulation()
 {
-
-    std::map<double, int> timeRng = expRng(10, 30);
-    std::map<double, int>::iterator itr = timeRng.begin();
+    timeposition1D landscape_state_prev;
     timeposition2D X_prev;
     timeposition2D X_new;
     double delta_t;
@@ -66,44 +64,60 @@ void LevyFlight2D::runSimulation()
 
     X_prev = X0;
 
+    // file = gsl_rng_uniform_int(rng, 2); // file 0 or file 1
+    landscape_state_prev.t = 0;
+    landscape_state_prev.x = (gsl_rng_uniform(rng) < 0.5 ? 0. : 1.); // 0 or 1
+    setNewValues(landscape_state_prev); // Update landscape_state
+    // file=0 -> dUdx, file=1 -> dUdx_second
+
+    gammadUdxXprev = (landscape_state_prev.x < 0.5 ? gamma * dUdx(X_prev.pos) : gamma * dUdx_second(X_prev.pos));
+
     while (X_prev.t < T) {
+        // if (X_prev.t > switching_times.top()) {
+        //     // file = (file == 0 ? 1 : 0); // file=0->file=1, file=1->file=0
+        //     landscape_state_prev.x=(landscape_state_prev.x < 0.5 ? 1. : 0.); // prev czy jakiś nowy?
+        //     // A co z landscape_state_prev.t?
+        //     // file=0 -> dUdx, file=1 -> dUdx_second
+        //     gammadUdxXprev = (file == 0 ? gamma * dUdx(X_prev.pos) : gamma * dUdx_second(X_prev.pos));
+        // }
+
+
         // TODO: [LEV-20] Value of dUdx(X_prev.x) must depend on X_prev.y. But not on dU/dy.
         // But then, Value of dUdy(X_prev.y) must depend on X_prev.x. But not on dU/dx.
         // TODO: [LEV-23] How to calculate Dt for 2D?
         // gammadUdxXprev = gamma * dUdx(X_prev.x);
-        // std::cout<<X_prev.t<<"\n";
-        // std::clog << "t=" << X_prev.t << " itr->first=" << itr->first << "\n";
-        if (itr == timeRng.begin()) {
-            gammadUdxXprev = gamma * dUdx(X_prev.pos);
-        }
-        if (X_prev.t > itr->first) {
-            // std::clog << "t=" << X_prev.t << " itr->first=" << itr->first << "\n";
-            // TODO: [LEV-81] Something is wrong with the value returned by itr->first
-            /*
-            t=151.099 itr->first=1.4822e-322
-            t=151.199 itr->first=74.2312
-            t=151.299 itr->first=1.4822e-322
-            t=151.399 itr->first=74.2312
-            t=151.499 itr->first=1.4822e-322
-            t=151.599 itr->first=74.2312
-            */
-            itr++;
 
-            if (file == 1) {
-                gammadUdxXprev = gamma * dUdx_second(X_prev.pos);
-                file = 2;
-            } else {
-                gammadUdxXprev = gamma * dUdx(X_prev.pos);
-                file = 1;
-            }
+        // if (itr == timeRng.begin()) {
+        //     gammadUdxXprev = gamma * dUdx(X_prev.pos);
+        // }
+        // if (X_prev.t > itr->first) {
+        //     // std::clog << "t=" << X_prev.t << " itr->first=" << itr->first << "\n";
+        //     // TODO: [LEV-81] Something is wrong with the value returned by itr->first
+        //     /*
+        //     t=151.099 itr->first=1.4822e-322
+        //     t=151.199 itr->first=74.2312
+        //     t=151.299 itr->first=1.4822e-322
+        //     t=151.399 itr->first=74.2312
+        //     t=151.499 itr->first=1.4822e-322
+        //     t=151.599 itr->first=74.2312
+        //     */
+        //     itr++;
 
-        } else {
-            if (file == 1) {
-                gammadUdxXprev = gamma * dUdx(X_prev.pos);
-            } else {
-                gammadUdxXprev = gamma * dUdx_second(X_prev.pos);
-            }
-        }
+        //     if (file == 1) {
+        //         gammadUdxXprev = gamma * dUdx_second(X_prev.pos);
+        //         file = 2;
+        //     } else {
+        //         gammadUdxXprev = gamma * dUdx(X_prev.pos);
+        //         file = 1;
+        //     }
+
+        // } else {
+        //     if (file == 1) {
+        //         gammadUdxXprev = gamma * dUdx(X_prev.pos);
+        //     } else {
+        //         gammadUdxXprev = gamma * dUdx_second(X_prev.pos);
+        //     }
+        // }
 
         if (notZero(gammadUdxXprev)) // denominator in eta * X_prev / gammadUdxXprev cannot be equal to 0
         {

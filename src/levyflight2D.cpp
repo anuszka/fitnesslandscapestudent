@@ -11,24 +11,22 @@ LevyFlight2D::~LevyFlight2D()
 {
 }
 
+double LevyFlight2D::getMean_landscape_switching_times() { return (mean_landscape_switching_times); }
+
 void LevyFlight2D::setInitialValues(timeposition2D X0_)
 {
     X0 = X0_;
     X.push_back(X0);
 }
 
-void LevyFlight2D::setSwitchingTimes(double mean, int n)
+void LevyFlight2D::setSwitchingTimes(double mean)
 {
     double number, cumul = 0.;
-    std::clog << "----------------\nExp rng test\n";
-    std::clog << "cumul,number\n";
-    for (int i = 0; i < n; ++i) {
+    while (cumul < T) {
         number = gsl_ran_exponential(rng, mean);
-        std::clog << cumul << "," << number << "\n";
         switching_times.push(cumul + number);
         cumul += number;
     }
-    std::clog << "\n---------------------\n";
 }
 
 double LevyFlight2D::getInitialTime() { return (X0.t); }
@@ -69,9 +67,8 @@ void LevyFlight2D::setParams(
     setRandomNumberGenerator(seed);
     gdi = func_gdi;
     Ntraj = nt;
-    N_landscape_switching_times = 5;
     mean_landscape_switching_times = 10;
-    setSwitchingTimes(mean_landscape_switching_times, N_landscape_switching_times);
+    setSwitchingTimes(mean_landscape_switching_times);
 }
 
 void LevyFlight2D::printTimePos(std::vector<timeposition2D> timepos)
@@ -92,4 +89,10 @@ void LevyFlight2D::setNewValues(
     timeposition2D X_)
 {
     X.push_back(X_);
+}
+
+void LevyFlight2D::setNewValues(
+    timeposition1D X_)
+{
+    landscape_state.push_back(X_);
 }
