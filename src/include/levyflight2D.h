@@ -1,4 +1,5 @@
 #include <vector>
+#include <stack>
 #include "timeposition.h"
 #include "levyflight_base.h"
 #include "drift.h"
@@ -10,6 +11,11 @@ class LevyFlight2D : public LevyFlight_base
 {
 private:
 protected:
+    double N_landscape_switching_times; 
+    double mean_landscape_switching_times;
+
+    std::stack<double> switching_times; // Times when the fitness landscape switches
+
     timeposition2D X0; // Initial coordinates: time + position
     
     
@@ -37,6 +43,9 @@ public:
     ~LevyFlight2D(); // Destructor
 
     void setInitialValues(timeposition2D X0);
+
+    void setSwitchingTimes(double mean, int n);
+
     double getInitialTime();
     double getInitialPositionX();
     double getInitialPositionY();
