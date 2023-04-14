@@ -77,7 +77,7 @@ void LevyFlight2D::runSimulation()
             gammadUdxXprev = gamma * dUdx(X_prev.pos);
         }
         if (X_prev.t > itr->first) {
-            std::clog << "t=" << X_prev.t << " itr->first=" << itr->first << "\n";
+            // std::clog << "t=" << X_prev.t << " itr->first=" << itr->first << "\n";
             // TODO: [LEV-81] Something is wrong with the value returned by itr->first
             /*
             t=151.099 itr->first=1.4822e-322
