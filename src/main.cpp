@@ -34,6 +34,9 @@ int main(int argc, char **argv)
 
         std::clog << "Output written to STDOUT.\n";
         std::clog << "Done.\n\n";
+        
+        //TODO: [LEV-82] Coś jest źle z logowaniem?
+
     }
 
     return EXIT_SUCCESS;
