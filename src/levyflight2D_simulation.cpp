@@ -59,20 +59,17 @@ void LevyFlight2D::runSimulation()
     double prefactor;
     double Dt;
     int file = 1;
-    // static double tstart = 2;
-    // static double tend = 2;
     position2D gammadUdxXprev;
 
     X_prev = X0;
 
-    // file = gsl_rng_uniform_int(rng, 2); // file 0 or file 1
-    landscape_state_prev.t = 0;
+    landscape_state_prev.t = X_prev.t;
     landscape_state_prev.x = (gsl_rng_uniform(rng) < 0.5 ? 0. : 1.); // 0 or 1
     setNewValues(landscape_state_prev); // Update landscape_state
-    // file=0 -> dUdx, file=1 -> dUdx_second
 
-    // gammadUdxXprev = (landscape_state_prev.x < 0.5 ? gamma * dUdx(X_prev.pos) : gamma * dUdx_second(X_prev.pos));
-
+    std::clog<<"=================================================\n";
+    std::clog<<"landscape_state_prev.t="<<landscape_state_prev.t<<" switching_times.front()="<<switching_times.front()<<"\n";
+    std::clog<<"=================================================\n";
     while (X_prev.t < T) {
 
         // TODO: [LEV-20] Value of dUdx(X_prev.x) must depend on X_prev.y. But not on dU/dy.
@@ -108,7 +105,7 @@ void LevyFlight2D::runSimulation()
         X_new = step(delta_t, prefactor, gammadUdxXprev, X_prev, file);
         setNewValues(X_new); // Update X
 
-        if (X_prev.t > switching_times.top()) {
+        if (X_prev.t > switching_times.front()) {
             // landscape_state_prev.x=0 -> landscape_state_new.x=1
             // landscape_state_prev.x=1 -> landscape_state_new.x=0
             landscape_state_new.x = (landscape_state_prev.x < 0.5 ? 1. : 0.);

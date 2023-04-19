@@ -1,7 +1,7 @@
 #include "drift.h"
 #include "levyflight_base.h"
 #include "timeposition.h"
-#include <stack>
+#include <queue>
 #include <vector>
 
 #ifndef LEVYFLIGHT2D_H
@@ -12,7 +12,7 @@ private:
 protected:
     double mean_landscape_switching_times;
 
-    std::stack<double> switching_times; // Times when the fitness landscape switches
+    std::queue<double> switching_times; // Times when the fitness landscape switches
 
     timeposition2D X0; // Initial coordinates: time + position
 
@@ -34,6 +34,8 @@ protected:
         int file);
 
     void printTimePos(std::vector<timeposition2D> timepos);
+    void printTimePosLandscape(std::vector<timeposition2D> timepos, std::vector<timeposition1D> landscape_st);
+
 
     virtual void setNewValues(timeposition2D X_);
     virtual void setNewValues(timeposition1D X_);

@@ -80,9 +80,20 @@ void LevyFlight2D::printTimePos(std::vector<timeposition2D> timepos)
         printf("%f,%f,%f\n", (*X_).t, (*X_).pos.x, (*X_).pos.y);
 }
 
+void LevyFlight2D::printTimePosLandscape(std::vector<timeposition2D> timepos, std::vector<timeposition1D> landscape_st)
+{
+    auto L_ = landscape_st.begin();
+
+    for (
+        auto X_ = timepos.begin();
+        X_ != timepos.end();
+        X_++, L_++)
+        printf("%f,%f,%f,%f,%f\n", (*X_).t, (*X_).pos.x, (*X_).pos.y, (*L_).t, (*L_).x);
+}
+
 void LevyFlight2D::printTraj()
 {
-    printTimePos(X);
+    printTimePosLandscape(X, landscape_state);
 }
 
 void LevyFlight2D::setNewValues(
