@@ -67,9 +67,9 @@ void LevyFlight2D::runSimulation()
     landscape_state_prev.x = (gsl_rng_uniform(rng) < 0.5 ? 0. : 1.); // 0 or 1
     setNewValues(landscape_state_prev); // Update landscape_state
 
-    std::clog<<"=================================================\n";
-    std::clog<<"landscape_state_prev.t="<<landscape_state_prev.t<<" switching_times.front()="<<switching_times.front()<<"\n";
-    std::clog<<"=================================================\n";
+    // std::clog<<"=================================================\n";
+    // std::clog<<"landscape_state_prev.t="<<landscape_state_prev.t<<" switching_times.front()="<<switching_times.front()<<"\n";
+    // std::clog<<"=================================================\n";
     while (X_prev.t < T) {
 
         // TODO: [LEV-20] Value of dUdx(X_prev.x) must depend on X_prev.y. But not on dU/dy.
