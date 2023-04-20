@@ -16,7 +16,9 @@ void LevyFlight2DEnsemble::setNewValues(
 void LevyFlight2DEnsemble::runMultipleSimulations(int N){
     for(int i=0; i<N; i++){
         this->X.clear();
+        this->landscape_state.clear();
         this->setInitialValues(this->X0);
+        this->setSwitchingTimes(mean_landscape_switching_times);
         this->runSimulation();
         X_ens.push_back(this->X.back());
     }

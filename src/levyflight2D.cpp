@@ -11,7 +11,10 @@ LevyFlight2D::~LevyFlight2D()
 {
 }
 
-double LevyFlight2D::getMean_landscape_switching_times() { return (mean_landscape_switching_times); }
+double LevyFlight2D::getMean_landscape_switching_times()
+{
+    return (mean_landscape_switching_times);
+}
 
 void LevyFlight2D::setInitialValues(timeposition2D X0_)
 {
@@ -22,6 +25,9 @@ void LevyFlight2D::setInitialValues(timeposition2D X0_)
 void LevyFlight2D::setSwitchingTimes(double mean)
 {
     double number, cumul = 0.;
+    // Remove all elements from the queue
+    while(! switching_times.empty())
+        switching_times.pop();
     while (cumul < T) {
         number = gsl_ran_exponential(rng, mean);
         switching_times.push(cumul + number);
