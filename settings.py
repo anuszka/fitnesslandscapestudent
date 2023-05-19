@@ -28,7 +28,7 @@ def init()->dict:
     
 
 
-    T1=5000.0
+    T1=10.0
     Ntraj1= 1 # Takes some time
     dt1= 0.1 #0.001
     minDt = 0. #1e-1
@@ -42,7 +42,7 @@ def init()->dict:
     kr2=20.
     kmr1=90.
     kmr2=100.
-
+    mean_landscape_switching_times=5.
     alpha_min=0.1
     alpha_max=0.2
     alpha_step=0.1
@@ -77,6 +77,7 @@ def init()->dict:
         kr2=kr2,
         kmr1=kmr1,
         kmr2=kmr2,
+        mean_landscape_switching_times=mean_landscape_switching_times,
         alpha_min=alpha_min,
         alpha_max=alpha_max,
         alpha_step=alpha_step,

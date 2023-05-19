@@ -38,6 +38,7 @@ def run_ensemble_simulation(alpha:float, seed:int, params:dict)->str:
         kmr2=n.kmr2,
         kr1=n.kr1,
         kr2=n.kr2,
+        mean_landscape_switching_times=n.mean_landscape_switching_times,
         Ntraj=n.Ntraj1,
         seed = seed, # ?? Does it work here?
         potentialfile=n.potentialfile1,

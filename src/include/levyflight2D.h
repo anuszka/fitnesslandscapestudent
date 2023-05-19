@@ -66,9 +66,11 @@ protected:
             double eta,
             double T,
             timeposition2D X0,
+            double mean_landscape_switching_times,
             unsigned int seed,
             GridDataInterface (*func_gdi)() = NULL,
-            int nt = 1);
+            int nt = 1
+            );
 
         void runSimulation() override;
         void printTraj() override;

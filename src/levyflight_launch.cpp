@@ -72,6 +72,7 @@ void LevyFlightLaunch::parseArgs()
         seed = setRngSeed();
     if (!parse_args("Ntraj", Ntraj, argc, argv))
         Ntraj = 1;
+    parse_args("mean_landscape_switching_times", mean_landscape_switching_times, argc ,argv);
 }
 
 void LevyFlightLaunch::logParsed()
@@ -98,6 +99,8 @@ void LevyFlightLaunch::logParsed()
     std::clog << "kr2 = " << kr2 << "\n"<<std::flush;
     std::clog << "seed = " << seed << "\n"<<std::flush;
     std::clog << "Ntraj = " << Ntraj << "\n"<<std::flush;
+    std::clog << "mean_landscape_switching_times = " << mean_landscape_switching_times << "\n"<<std::flush;
+
     if (Ntraj == 1)
         std::clog << "Whole single trajectory will be printed as the output."<<"\n"<<std::flush;
     else
@@ -149,6 +152,7 @@ void LevyFlightLaunch::launch_2D_1traj()
         eta,
         T,
         X2D_0,
+        mean_landscape_switching_times,
         seed
         );
 
@@ -212,6 +216,7 @@ void LevyFlightLaunch::launch_2D_1traj_potential_file()
         eta,
         T,
         X2D_0,
+        mean_landscape_switching_times,
         seed,
         &wrapperGetGdi
         );
@@ -264,6 +269,7 @@ void LevyFlightLaunch::launch_2D_ensemble()
         eta,
         T,
         X2D_0,
+        mean_landscape_switching_times,
         seed,
         NULL,
         Ntraj
@@ -296,6 +302,7 @@ void LevyFlightLaunch::launch_2D_ensemble_potential_file()
         eta,
         T,
         X2D_0,
+        mean_landscape_switching_times,
         seed,
         &wrapperGetGdi,
         Ntraj

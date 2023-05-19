@@ -53,9 +53,11 @@ void LevyFlight2D::setParams(
     double eta,
     double T,
     timeposition2D X0,
+    double mean_landscape_switching_times,
     unsigned int seed,
     GridDataInterface (*func_gdi)(),
-    int nt)
+    int nt
+    )
 {
     setAlpha(alpha);
     setNoiseIntensity(D);
