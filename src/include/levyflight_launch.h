@@ -21,6 +21,7 @@ private:
     double kmr2;                // Upper limit of kmr
     double kr1;                 // Lower limit of kr
     double kr2;                 // Upper limit of kr
+    double mean_landscape_switching_times; // Mean landscape switching times
     int lvl;                    // Potential level
     unsigned int seed;          // Random number generator seed
     // char *potentialfile;       // Potential grid file
